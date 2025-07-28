@@ -163,7 +163,6 @@ const Hero = () => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          {/* Professional Badge */}
           <motion.div variants={itemVariants} className="mb-8">
             <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 backdrop-blur-sm">
               <span className="text-blue-400 font-medium">
