@@ -214,42 +214,45 @@ const ProjectTimeline = () => {
                       : 'bg-slate-800/30 border-slate-700/50 hover:border-slate-600/50'
                   }`}>
                     {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div 
-                          className="w-10 h-10 rounded-lg flex items-center justify-center"
-                          style={{ backgroundColor: item.color + '20' }}
-                        >
-                          <ItemIcon 
-                            className="w-5 h-5" 
-                            style={{ color: item.color }}
-                          />
-                        </div>
-                        <div>
-                          <h4 className="text-white font-semibold text-lg">{item.title}</h4>
-                          <div className="flex items-center gap-4 text-sm text-gray-400">
-                            <span className="flex items-center gap-1">
-                              <MapPin className="w-3 h-3" />
-                              {item.company}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              {item.date}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {item.duration}
-                            </span>
+                    <div className="mb-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                          <div 
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                            style={{ backgroundColor: item.color + '20' }}
+                          >
+                            <ItemIcon 
+                              className="w-4 h-4 sm:w-5 sm:h-5" 
+                              style={{ color: item.color }}
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h4 className="text-white font-semibold text-base sm:text-lg truncate">{item.title}</h4>
                           </div>
                         </div>
-                      </div>
 
-                      {item.featured && (
-                        <div className="flex items-center gap-1 px-2 py-1 bg-yellow-500/20 rounded-full">
-                          <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                          <span className="text-yellow-400 text-xs font-medium">Featured</span>
-                        </div>
-                      )}
+                        {item.featured && (
+                          <div className="flex items-center gap-1 px-2 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-full ml-2 flex-shrink-0">
+                            <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                            <span className="text-yellow-400 text-xs font-medium hidden sm:inline">Featured</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400 ml-11 sm:ml-13">
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          <span className="truncate">{item.company}</span>
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {item.date}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {item.duration}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Description */}

@@ -11,6 +11,7 @@ import ProjectTimeline from './components/ProjectTimeline';
 import CreativeShowcase from './components/CreativeShowcase';
 import HiddenEasterEggs from './components/HiddenEasterEggs';
 import ParticleController from './components/SecretParticleSystem';
+import { ThemeProvider } from './context/ThemeContext';
 import './index.css';
 
 function App() {
@@ -28,45 +29,47 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Navigation />
-      <ThemeSwitcher />
-      
-      {/* Hidden Features */}
-      <HiddenEasterEggs />
-      <ParticleController />
-      
-      <main>
-        <section id="hero">
-          <Hero />
-        </section>
-        <section id="skills">
-          <Skills />
-        </section>
-        <section id="projects">
-          <Projects onOpenModal={openModal} />
-        </section>
-        {/* Project Timeline Section */}
-        <section id="timeline" className="py-20 px-4 bg-slate-900">
-          <div className="max-w-7xl mx-auto">
-            <ProjectTimeline />
-          </div>
-        </section>
-        {/* Creative Showcase Section */}
-        <section id="showcase">
-          <CreativeShowcase />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
-      </main>
-      <Footer />
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={closeModal} 
-        project={selectedProject} 
-      />
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <Navigation />
+        <ThemeSwitcher />
+        
+        {/* Hidden Features */}
+        <HiddenEasterEggs />
+        <ParticleController />
+        
+        <main>
+          <section id="hero">
+            <Hero />
+          </section>
+          <section id="skills">
+            <Skills />
+          </section>
+          <section id="projects">
+            <Projects onOpenModal={openModal} />
+          </section>
+          {/* Project Timeline Section */}
+          <section id="timeline" className="py-20 px-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+            <div className="max-w-7xl mx-auto">
+              <ProjectTimeline />
+            </div>
+          </section>
+          {/* Creative Showcase Section */}
+          <section id="showcase">
+            <CreativeShowcase />
+          </section>
+          <section id="contact">
+            <Contact />
+          </section>
+        </main>
+        <Footer />
+        <Modal 
+          isOpen={isModalOpen} 
+          onClose={closeModal} 
+          project={selectedProject} 
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 

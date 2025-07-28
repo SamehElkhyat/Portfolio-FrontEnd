@@ -50,8 +50,8 @@ const ProjectCard = ({ project, index, onOpenModal, viewMode }) => {
         viewMode === 'list' ? 'rounded-2xl p-6 flex-1' : 'rounded-2xl p-6 h-full'
       }`}>
         {/* Project Image/Preview */}
-        <div className={`relative overflow-hidden rounded-xl mb-6 ${
-          viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'w-full h-48'
+        <div className={`relative overflow-hidden rounded-xl mb-4 sm:mb-6 ${
+          viewMode === 'list' ? 'w-32 h-20 sm:w-40 sm:h-28 md:w-48 md:h-32 flex-shrink-0' : 'w-full h-40 sm:h-48'
         }`}>
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20"></div>
           <motion.div
@@ -126,16 +126,16 @@ const ProjectCard = ({ project, index, onOpenModal, viewMode }) => {
         {/* Content */}
         <div className="flex-1">
           {/* Header */}
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex-1">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
+            <div className="flex-1 min-w-0">
               <motion.h3
-                className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300"
+                className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300 truncate"
                 animate={{ x: isHovered ? 5 : 0 }}
                 transition={{ duration: 0.3 }}
               >
                 {project.title}
               </motion.h3>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
                 <span className="px-2 py-1 text-xs font-medium bg-blue-500/20 text-blue-400 rounded-full border border-blue-500/30">
                   {project.category}
                 </span>
@@ -147,11 +147,11 @@ const ProjectCard = ({ project, index, onOpenModal, viewMode }) => {
             </div>
             
             {/* Star Rating */}
-            <div className="flex items-center gap-1" role="img" aria-label={`Rating: ${project.rating} out of 5 stars`}>
+            <div className="flex items-center gap-1 self-start sm:self-auto" role="img" aria-label={`Rating: ${project.rating} out of 5 stars`}>
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className={`w-4 h-4 ${
+                  className={`w-3 h-3 sm:w-4 sm:h-4 ${
                     i < project.rating ? 'text-yellow-400 fill-current' : 'text-gray-600'
                   }`}
                   aria-hidden="true"
@@ -161,31 +161,34 @@ const ProjectCard = ({ project, index, onOpenModal, viewMode }) => {
           </div>
 
           {/* Description */}
-          <p className="text-gray-400 text-sm leading-relaxed mb-6">
+          <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-3">
             {project.description}
           </p>
 
           {/* Metrics */}
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
             <div className="text-center">
-              <div className="text-lg font-bold text-white">{project.views}</div>
+              <div className="text-sm sm:text-lg font-bold text-white">{project.views}</div>
               <div className="text-xs text-gray-400 flex items-center justify-center gap-1">
-                <Eye className="w-3 h-3" aria-hidden="true" />
-                <span>Views</span>
+                <Eye className="w-2 h-2 sm:w-3 sm:h-3" aria-hidden="true" />
+                <span className="hidden sm:inline">Views</span>
+                <span className="sm:hidden">V</span>
               </div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-white">{project.impact}</div>
+              <div className="text-sm sm:text-lg font-bold text-white">{project.impact}</div>
               <div className="text-xs text-gray-400 flex items-center justify-center gap-1">
-                <Award className="w-3 h-3" aria-hidden="true" />
-                <span>Impact</span>
+                <Award className="w-2 h-2 sm:w-3 sm:h-3" aria-hidden="true" />
+                <span className="hidden sm:inline">Impact</span>
+                <span className="sm:hidden">I</span>
               </div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-white">{project.completion}</div>
+              <div className="text-sm sm:text-lg font-bold text-white">{project.completion}</div>
               <div className="text-xs text-gray-400 flex items-center justify-center gap-1">
-                <Sparkles className="w-3 h-3" aria-hidden="true" />
-                <span>Done</span>
+                <Sparkles className="w-2 h-2 sm:w-3 sm:h-3" aria-hidden="true" />
+                <span className="hidden sm:inline">Done</span>
+                <span className="sm:hidden">D</span>
               </div>
             </div>
           </div>
@@ -381,29 +384,29 @@ const Projects = ({ onOpenModal }) => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-14 md:mb-16 px-4"
         >
-          <h2 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-4 sm:mb-6">
             Featured Projects
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-6 sm:mb-8">
             Enterprise-grade solutions that drive business growth and deliver measurable impact. 
             Each project showcases advanced technical expertise and innovative problem-solving.
           </p>
           
           {/* Project Stats */}
-          <div className="flex justify-center gap-8 mb-12">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">50+</div>
-              <div className="text-sm text-gray-400">Projects Delivered</div>
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 md:mb-12">
+            <div className="text-center min-w-0">
+              <div className="text-2xl sm:text-3xl font-bold text-white mb-1">50+</div>
+              <div className="text-xs sm:text-sm text-gray-400">Projects Delivered</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">98%</div>
-              <div className="text-sm text-gray-400">Client Satisfaction</div>
+            <div className="text-center min-w-0">
+              <div className="text-2xl sm:text-3xl font-bold text-white mb-1">98%</div>
+              <div className="text-xs sm:text-sm text-gray-400">Client Satisfaction</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">$2M+</div>
-              <div className="text-sm text-gray-400">Business Impact</div>
+            <div className="text-center min-w-0">
+              <div className="text-2xl sm:text-3xl font-bold text-white mb-1">$2M+</div>
+              <div className="text-xs sm:text-sm text-gray-400">Business Impact</div>
             </div>
           </div>
         </motion.div>
@@ -413,84 +416,89 @@ const Projects = ({ onOpenModal }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-12"
+          className="mb-8 sm:mb-10 md:mb-12 px-4"
         >
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors"
-              />
+          <div className="flex flex-col gap-4 sm:gap-6 mb-6 sm:mb-8">
+            {/* Search and View Mode Row */}
+            <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
+              {/* Search */}
+              <div className="relative flex-1 max-w-full sm:max-w-md">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
+                <input
+                  type="text"
+                  placeholder="Search projects..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
+                />
+              </div>
+
+              {/* View Mode */}
+              <div className="flex items-center gap-2 bg-slate-800/50 rounded-xl p-1 w-fit mx-auto sm:mx-0">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 rounded-lg transition-colors ${
+                    viewMode === 'grid' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-white'
+                  }`}
+                  aria-label="Grid view"
+                >
+                  <Grid className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 rounded-lg transition-colors ${
+                    viewMode === 'list' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-white'
+                  }`}
+                  aria-label="List view"
+                >
+                  <List className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+              </div>
             </div>
 
-            {/* View Mode */}
-            <div className="flex items-center gap-2 bg-slate-800/50 rounded-xl p-1">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition-colors ${
-                  viewMode === 'grid' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <Grid className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition-colors ${
-                  viewMode === 'list' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <List className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
+            {/* Filter Controls */}
+            <div className="flex flex-wrap gap-3 sm:gap-4 items-center justify-center sm:justify-start">
+              {/* Category Filter */}
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-gray-400" />
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="bg-slate-800/50 border border-slate-700 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-white focus:border-blue-500 focus:outline-none text-sm sm:text-base min-w-0"
+                >
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
 
-          {/* Filter Controls */}
-          <div className="flex flex-wrap gap-4 items-center justify-center lg:justify-between">
-            {/* Category Filter */}
-            <div className="flex items-center gap-2">
-              <Filter className="w-4 h-4 text-gray-400" />
+              {/* Technology Filter */}
               <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
+                value={selectedTech}
+                onChange={(e) => setSelectedTech(e.target.value)}
+                className="bg-slate-800/50 border border-slate-700 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-white focus:border-blue-500 focus:outline-none text-sm sm:text-base min-w-0"
               >
-                {categories.map(category => (
-                  <option key={category} value={category}>{category}</option>
+                {technologies.slice(0, 10).map(tech => (
+                  <option key={tech} value={tech}>{tech}</option>
                 ))}
               </select>
-            </div>
 
-            {/* Technology Filter */}
-            <select
-              value={selectedTech}
-              onChange={(e) => setSelectedTech(e.target.value)}
-              className="bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
-            >
-              {technologies.slice(0, 10).map(tech => (
-                <option key={tech} value={tech}>{tech}</option>
-              ))}
-            </select>
+              {/* Sort */}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-slate-800/50 border border-slate-700 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-white focus:border-blue-500 focus:outline-none text-sm sm:text-base min-w-0"
+              >
+                <option value="newest">Newest First</option>
+                <option value="rating">Highest Rated</option>
+                <option value="complexity">Most Complex</option>
+                <option value="views">Most Viewed</option>
+              </select>
 
-            {/* Sort */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
-            >
-              <option value="newest">Newest First</option>
-              <option value="rating">Highest Rated</option>
-              <option value="complexity">Most Complex</option>
-              <option value="views">Most Viewed</option>
-            </select>
-
-            {/* Results Count */}
-            <div className="text-gray-400 text-sm">
-              {filteredProjects.length} projects found
+              {/* Results Count */}
+              <div className="text-gray-400 text-xs sm:text-sm whitespace-nowrap">
+                {filteredProjects.length} projects found
+              </div>
             </div>
           </div>
         </motion.div>
@@ -500,10 +508,10 @@ const Projects = ({ onOpenModal }) => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className={`${
+          className={`px-4 ${
             viewMode === 'grid' 
-              ? 'grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8' 
-              : 'space-y-6'
+              ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8' 
+              : 'space-y-4 sm:space-y-6'
           }`}
         >
           <AnimatePresence>
@@ -524,23 +532,23 @@ const Projects = ({ onOpenModal }) => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mt-20"
+          className="text-center mt-12 sm:mt-16 md:mt-20 px-4"
         >
-          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 backdrop-blur-sm">
-            <h3 className="text-3xl font-bold text-white mb-4">Ready to Build Something Amazing?</h3>
-            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
+            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Build Something Amazing?</h3>
+            <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto text-sm sm:text-base">
               Let's discuss your next project and create solutions that drive real business impact.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <motion.button
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-semibold text-white"
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-semibold text-white text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Start a Project
               </motion.button>
               <motion.button
-                className="px-8 py-4 border-2 border-white/20 rounded-full font-semibold text-white hover:bg-white hover:text-gray-900 transition-all duration-300"
+                className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white/20 rounded-full font-semibold text-white hover:bg-white hover:text-gray-900 transition-all duration-300 text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

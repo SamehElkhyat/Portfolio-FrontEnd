@@ -3,6 +3,69 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme Variables */
+:root {
+  /* Light Theme */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-overlay: rgba(0, 0, 0, 0.1);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+  
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+  --border-muted: #f1f5f9;
+  
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --accent-cyan: #06b6d4;
+  --accent-green: #10b981;
+  --accent-yellow: #f59e0b;
+  --accent-red: #ef4444;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  /* Dark Theme */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-card: rgba(30, 41, 59, 0.5);
+  --bg-card-hover: rgba(51, 65, 85, 0.5);
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+  
+  --border-primary: rgba(51, 65, 85, 0.5);
+  --border-secondary: rgba(71, 85, 105, 0.5);
+  --border-muted: rgba(30, 41, 59, 0.5);
+  
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --accent-cyan: #06b6d4;
+  --accent-green: #10b981;
+  --accent-yellow: #f59e0b;
+  --accent-red: #ef4444;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -15,23 +78,24 @@ html {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: #0a0a0a;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Enhanced scrollbar with better visibility */
+/* Theme-aware scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: var(--bg-secondary);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
   border-radius: 4px;
   transition: background 0.3s ease;
 }
@@ -39,6 +103,27 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #2563eb, #7c3aed);
 }
+
+/* Theme Utility Classes */
+.bg-theme-primary { background-color: var(--bg-primary); }
+.bg-theme-secondary { background-color: var(--bg-secondary); }
+.bg-theme-tertiary { background-color: var(--bg-tertiary); }
+.bg-theme-card { background-color: var(--bg-card); }
+.bg-theme-card-hover { background-color: var(--bg-card-hover); }
+
+.text-theme-primary { color: var(--text-primary); }
+.text-theme-secondary { color: var(--text-secondary); }
+.text-theme-muted { color: var(--text-muted); }
+.text-theme-inverse { color: var(--text-inverse); }
+
+.border-theme-primary { border-color: var(--border-primary); }
+.border-theme-secondary { border-color: var(--border-secondary); }
+.border-theme-muted { border-color: var(--border-muted); }
+
+.shadow-theme-sm { box-shadow: var(--shadow-sm); }
+.shadow-theme-md { box-shadow: var(--shadow-md); }
+.shadow-theme-lg { box-shadow: var(--shadow-lg); }
+.shadow-theme-xl { box-shadow: var(--shadow-xl); }
 
 /* Enhanced typing cursor effect */
 .typing-cursor::after {
@@ -125,15 +210,66 @@ button:active:not(:disabled) {
   border: 0;
 }
 
-/* Enhanced selection styling */
+/* Enhanced selection styling - Theme Aware */
 ::selection {
   background: rgba(59, 130, 246, 0.3);
-  color: white;
+  color: var(--text-primary);
 }
 
 ::-moz-selection {
   background: rgba(59, 130, 246, 0.3);
-  color: white;
+  color: var(--text-primary);
+}
+
+/* Additional Theme-Aware Utilities */
+.gradient-text-theme {
+  background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.backdrop-blur-theme {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-primary);
+}
+
+.card-theme {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.card-theme:hover {
+  background-color: var(--bg-card-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-theme-primary {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: var(--text-inverse);
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-theme-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-theme-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--border-primary);
+  transition: all 0.3s ease;
+}
+
+.btn-theme-secondary:hover {
+  background-color: var(--bg-card-hover);
+  transform: translateY(-1px);
 }
 
 /* Improved reduced motion support */
@@ -174,27 +310,28 @@ button:active:not(:disabled) {
   }
 }
 
-/* Map Component Styling */
+/* Map Component Styling - Theme Aware */
 .leaflet-container {
-  background: #1e293b !important;
+  background: var(--bg-secondary) !important;
   font-family: 'Montserrat', sans-serif !important;
 }
 
 .leaflet-popup-content-wrapper {
-  background: white !important;
+  background: var(--bg-card) !important;
   border-radius: 12px !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
-  border: 1px solid #e2e8f0 !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--border-primary) !important;
 }
 
 .leaflet-popup-tip {
-  background: white !important;
-  border: 1px solid #e2e8f0 !important;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
 }
 
 .leaflet-popup-content {
   margin: 0 !important;
   font-family: 'Montserrat', sans-serif !important;
+  color: var(--text-primary) !important;
 }
 
 .custom-marker {
@@ -208,19 +345,24 @@ button:active:not(:disabled) {
 }
 
 .leaflet-control-attribution {
-  background: rgba(30, 41, 59, 0.8) !important;
-  color: #94a3b8 !important;
+  background: var(--bg-card) !important;
+  color: var(--text-muted) !important;
   font-size: 10px !important;
   padding: 2px 6px !important;
   border-radius: 6px !important;
   backdrop-filter: blur(8px);
+  border: 1px solid var(--border-primary) !important;
 }
 
 .leaflet-control-attribution a {
-  color: #60a5fa !important;
+  color: var(--accent-blue) !important;
 }
 
 /* Custom map overlay for dark theme */
-.leaflet-tile {
+[data-theme="dark"] .leaflet-tile {
   filter: brightness(0.8) contrast(1.1) saturate(0.8);
+}
+
+[data-theme="light"] .leaflet-tile {
+  filter: brightness(1) contrast(1) saturate(1);
 } 

@@ -70,21 +70,21 @@ const TechCard = ({ tech, index, inView }) => {
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.9 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
       whileHover={{ y: -5, scale: 1.05 }}
-      className="group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4 hover:border-blue-500/50 transition-all duration-300"
+      className="group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-3 sm:p-4 hover:border-blue-500/50 transition-all duration-300"
     >
       <div className="text-center">
-        <div className={`w-12 h-12 mx-auto mb-3 rounded-lg bg-gradient-to-br ${tech.gradient} flex items-center justify-center`}>
-          <tech.icon className="w-6 h-6 text-white" />
+        <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg bg-gradient-to-br ${tech.gradient} flex items-center justify-center`}>
+          <tech.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
         </div>
-        <h4 className="text-white font-medium mb-1">{tech.name}</h4>
-        <p className="text-gray-400 text-xs">{tech.category}</p>
+        <h4 className="text-white font-medium mb-1 text-sm sm:text-base truncate">{tech.name}</h4>
+        <p className="text-gray-400 text-xs truncate">{tech.category}</p>
         
         {/* Proficiency indicator */}
         <div className="flex justify-center mt-2">
           {[...Array(5)].map((_, i) => (
             <Star
               key={i}
-              className={`w-3 h-3 ${
+              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${
                 i < tech.proficiency ? 'text-yellow-400 fill-current' : 'text-gray-600'
               }`}
             />
@@ -110,27 +110,27 @@ const Stats = ({ inView }) => {
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-12 sm:mb-14 md:mb-16 px-4">
       {stats.map((stat, index) => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: index * 0.1 }}
-          className="text-center bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300"
+          className="text-center bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4 sm:p-5 md:p-6 hover:border-blue-500/50 transition-all duration-300"
         >
-          <div className={`w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
-            <stat.icon className="w-6 h-6 text-white" />
+          <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
+            <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </div>
           <motion.div
-            className="text-3xl font-bold text-white mb-2"
+            className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2"
             initial={{ scale: 0 }}
             animate={inView ? { scale: 1 } : { scale: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
           >
             {stat.value}
           </motion.div>
-          <div className="text-gray-400 text-sm">{stat.label}</div>
+          <div className="text-gray-400 text-xs sm:text-sm">{stat.label}</div>
         </motion.div>
       ))}
     </div>
@@ -219,12 +219,12 @@ const Skills = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-14 md:mb-16 px-4"
         >
-          <h2 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-4 sm:mb-6">
             Technical Expertise
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12">
             Cutting-edge skills and technologies that power modern applications. 
             Continuous learning and adaptation to industry best practices.
           </p>
@@ -238,23 +238,26 @@ const Skills = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex justify-center mb-12"
+          className="flex justify-center mb-8 sm:mb-10 md:mb-12 px-4"
         >
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-2 border border-slate-700/50">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
-                    : 'text-gray-400 hover:text-white hover:bg-slate-700/50'
-                }`}
-              >
-                <tab.icon className="w-5 h-5" />
-                {tab.label}
-              </button>
-            ))}
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-1.5 sm:p-2 border border-slate-700/50 w-full max-w-2xl">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center justify-center gap-2 px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base flex-1 ${
+                    activeTab === tab.id
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
+                      : 'text-gray-400 hover:text-white hover:bg-slate-700/50'
+                  }`}
+                >
+                  <tab.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="hidden sm:inline">{tab.label}</span>
+                  <span className="sm:hidden">{tab.label.split(' ')[0]}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </motion.div>
 
@@ -268,55 +271,59 @@ const Skills = () => {
           {activeTab === 'skills' && (
             <div className="space-y-8">
               {/* Skills View Toggle */}
-              <div className="flex justify-center mb-8">
+              <div className="flex justify-center mb-6 sm:mb-8 px-4">
                 <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-1 border border-slate-700/50">
                   <button
                     onClick={() => setSkillsView('bars')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
                       skillsView === 'bars'
                         ? 'bg-blue-500 text-white'
                         : 'text-gray-400 hover:text-white hover:bg-slate-700/50'
                     }`}
                   >
                     <BarChart className="w-4 h-4" />
-                    Progress Bars
+                    <span className="hidden sm:inline">Progress Bars</span>
+                    <span className="sm:hidden">Bars</span>
                   </button>
                   <button
                     onClick={() => setSkillsView('radar')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
                       skillsView === 'radar'
                         ? 'bg-blue-500 text-white'
                         : 'text-gray-400 hover:text-white hover:bg-slate-700/50'
                     }`}
                   >
                     <Radar className="w-4 h-4" />
-                    Skills Radar
+                    <span className="hidden sm:inline">Skills Radar</span>
+                    <span className="sm:hidden">Radar</span>
                   </button>
                 </div>
               </div>
 
               {/* Skills Content */}
               {skillsView === 'bars' ? (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <div className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 px-4">
+                  <div className="space-y-4 sm:space-y-6">
                     {skillCategories.skills.slice(0, 3).map((skill, index) => (
                       <SkillBar key={skill.name} skill={skill} index={index} inView={inView} />
                     ))}
                   </div>
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     {skillCategories.skills.slice(3, 6).map((skill, index) => (
                       <SkillBar key={skill.name} skill={skill} index={index + 3} inView={inView} />
                     ))}
                   </div>
                 </div>
               ) : (
-                <SkillsRadar />
+                <div className="px-4">
+                  <SkillsRadar />
+                </div>
               )}
             </div>
           )}
 
           {activeTab === 'technologies' && (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 px-4">
               {technologies.map((tech, index) => (
                 <TechCard key={tech.name} tech={tech} index={index} inView={inView} />
               ))}
@@ -324,7 +331,7 @@ const Skills = () => {
           )}
 
           {activeTab === 'certifications' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4">
               {[
                 {
                   title: "AWS Solutions Architect",
@@ -403,15 +410,15 @@ const Skills = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-center mt-20"
+          className="text-center mt-12 sm:mt-16 md:mt-20 px-4"
         >
-          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 backdrop-blur-sm">
-            <h3 className="text-3xl font-bold text-white mb-4">Let's Build Something Extraordinary</h3>
-            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
+            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Let's Build Something Extraordinary</h3>
+            <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto text-sm sm:text-base">
               Ready to leverage these skills for your next project? Let's discuss how we can create solutions that exceed expectations.
             </p>
             <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-semibold text-white"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-semibold text-white text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

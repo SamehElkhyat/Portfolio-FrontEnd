@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Monitor, Palette, Check } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const ThemeSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState('dark');
-  const [systemTheme, setSystemTheme] = useState('dark');
+  const { currentTheme, systemTheme, setTheme } = useTheme();
 
   const themes = [
     {
@@ -46,40 +46,9 @@ const ThemeSwitcher = () => {
     }
   ];
 
-  useEffect(() => {
-    // Detect system theme preference
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
-
-    const handleChange = (e) => {
-      setSystemTheme(e.matches ? 'dark' : 'light');
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  useEffect(() => {
-    // Apply theme to document
-    const root = document.documentElement;
-    
-    if (currentTheme === 'system') {
-      const effectiveTheme = systemTheme;
-      root.setAttribute('data-theme', effectiveTheme);
-    } else {
-      root.setAttribute('data-theme', currentTheme);
-    }
-  }, [currentTheme, systemTheme]);
-
   const handleThemeChange = (themeId) => {
-    setCurrentTheme(themeId);
+    setTheme(themeId);
     setIsOpen(false);
-    
-    // Add smooth transition effect
-    document.body.style.transition = 'all 0.3s ease-in-out';
-    setTimeout(() => {
-      document.body.style.transition = '';
-    }, 300);
   };
 
   const getCurrentIcon = () => {
@@ -97,7 +66,8 @@ const ThemeSwitcher = () => {
       {/* Theme Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-20 right-6 z-50 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+        className="fixed top-16 sm:top-20 right-4 sm:right-6 z-50 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-theme-lg hover:shadow-theme-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-2"
+        style={{ '--tw-ring-offset-color': 'var(--bg-primary)' }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         aria-label="Toggle theme selector"
@@ -106,7 +76,7 @@ const ThemeSwitcher = () => {
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <CurrentIcon className="w-5 h-5" />
+          <CurrentIcon className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.div>
       </motion.button>
 
@@ -116,7 +86,8 @@ const ThemeSwitcher = () => {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
+              className="fixed inset-0 z-40 backdrop-blur-sm"
+              style={{ backgroundColor: 'var(--bg-overlay)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -125,19 +96,23 @@ const ThemeSwitcher = () => {
 
             {/* Theme Panel */}
             <motion.div
-              className="fixed top-20 right-20 z-50 bg-slate-900/95 backdrop-blur-md border border-slate-700/50 rounded-2xl p-6 min-w-80 shadow-2xl"
+              className="fixed top-16 sm:top-20 right-4 sm:right-16 md:right-20 z-50 backdrop-blur-md border rounded-2xl p-4 sm:p-6 w-80 max-w-[calc(100vw-2rem)] shadow-theme-xl"
+              style={{ 
+                backgroundColor: 'var(--bg-card)',
+                borderColor: 'var(--border-primary)'
+              }}
               initial={{ opacity: 0, scale: 0.9, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: -20 }}
               transition={{ type: 'spring', damping: 20, stiffness: 300 }}
             >
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                   <Palette className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">Theme Preferences</h3>
-                  <p className="text-gray-400 text-sm">Choose your interface style</p>
+                  <h3 className="font-semibold text-base sm:text-lg" style={{ color: 'var(--text-primary)' }}>Theme Preferences</h3>
+                  <p className="text-xs sm:text-sm" style={{ color: 'var(--text-muted)' }}>Choose your interface style</p>
                 </div>
               </div>
 
@@ -146,28 +121,32 @@ const ThemeSwitcher = () => {
                   <motion.button
                     key={theme.id}
                     onClick={() => handleThemeChange(theme.id)}
-                    className={`w-full p-4 rounded-xl border transition-all duration-300 text-left ${
-                      currentTheme === theme.id
-                        ? 'bg-blue-500/10 border-blue-500/50'
-                        : 'bg-slate-800/30 border-slate-700/50 hover:border-slate-600/50 hover:bg-slate-800/50'
-                    }`}
+                    className="w-full p-3 sm:p-4 rounded-xl border transition-all duration-300 text-left"
+                    style={{
+                      backgroundColor: currentTheme === theme.id ? 'rgba(59, 130, 246, 0.1)' : 'var(--bg-card-hover)',
+                      borderColor: currentTheme === theme.id ? 'rgba(59, 130, 246, 0.5)' : 'var(--border-secondary)'
+                    }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                          currentTheme === theme.id
-                            ? 'bg-blue-500/20'
-                            : 'bg-slate-700/50'
-                        }`}>
-                          <theme.icon className={`w-5 h-5 ${
-                            currentTheme === theme.id ? 'text-blue-400' : 'text-gray-400'
-                          }`} />
+                        <div 
+                          className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center"
+                          style={{
+                            backgroundColor: currentTheme === theme.id ? 'rgba(59, 130, 246, 0.2)' : 'var(--bg-tertiary)'
+                          }}
+                        >
+                          <theme.icon 
+                            className="w-4 h-4 sm:w-5 sm:h-5"
+                            style={{
+                              color: currentTheme === theme.id ? '#60a5fa' : 'var(--text-muted)'
+                            }}
+                          />
                         </div>
-                        <div>
-                          <h4 className="text-white font-medium">{theme.name}</h4>
-                          <p className="text-gray-400 text-sm">{theme.description}</p>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-medium text-sm sm:text-base" style={{ color: 'var(--text-primary)' }}>{theme.name}</h4>
+                          <p className="text-xs sm:text-sm truncate" style={{ color: 'var(--text-muted)' }}>{theme.description}</p>
                         </div>
                       </div>
                       
@@ -176,8 +155,9 @@ const ThemeSwitcher = () => {
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ type: 'spring', damping: 15, stiffness: 300 }}
+                          className="flex-shrink-0"
                         >
-                          <Check className="w-5 h-5 text-blue-400" />
+                          <Check className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                         </motion.div>
                       )}
                     </div>
@@ -186,16 +166,25 @@ const ThemeSwitcher = () => {
                     {theme.id !== 'system' && (
                       <div className="mt-3 flex gap-2">
                         <div 
-                          className="w-6 h-6 rounded border-2 border-white/20"
-                          style={{ backgroundColor: theme.colors.primary }}
+                          className="w-5 h-5 sm:w-6 sm:h-6 rounded border-2"
+                          style={{ 
+                            backgroundColor: theme.colors.primary,
+                            borderColor: 'var(--border-primary)'
+                          }}
                         />
                         <div 
-                          className="w-6 h-6 rounded border-2 border-white/20"
-                          style={{ backgroundColor: theme.colors.secondary }}
+                          className="w-5 h-5 sm:w-6 sm:h-6 rounded border-2"
+                          style={{ 
+                            backgroundColor: theme.colors.secondary,
+                            borderColor: 'var(--border-primary)'
+                          }}
                         />
                         <div 
-                          className="w-6 h-6 rounded border-2 border-white/20"
-                          style={{ backgroundColor: theme.colors.accent }}
+                          className="w-5 h-5 sm:w-6 sm:h-6 rounded border-2"
+                          style={{ 
+                            backgroundColor: theme.colors.accent,
+                            borderColor: 'var(--border-primary)'
+                          }}
                         />
                       </div>
                     )}
@@ -206,23 +195,27 @@ const ThemeSwitcher = () => {
               {/* System Theme Info */}
               {currentTheme === 'system' && (
                 <motion.div
-                  className="mt-4 p-3 bg-slate-800/50 rounded-lg border border-slate-700/50"
+                  className="mt-4 p-3 rounded-lg border"
+                  style={{
+                    backgroundColor: 'var(--bg-secondary)',
+                    borderColor: 'var(--border-secondary)'
+                  }}
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex items-center gap-2 text-sm">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm">
                     <Monitor className="w-4 h-4 text-blue-400" />
-                    <span className="text-gray-300">
-                      Currently using: <span className="text-white font-medium capitalize">{systemTheme}</span> mode
+                    <span style={{ color: 'var(--text-secondary)' }}>
+                      Currently using: <span className="font-medium capitalize" style={{ color: 'var(--text-primary)' }}>{systemTheme}</span> mode
                     </span>
                   </div>
                 </motion.div>
               )}
 
               {/* Footer */}
-              <div className="mt-6 pt-4 border-t border-slate-700/50">
-                <p className="text-gray-500 text-xs text-center">
+              <div className="mt-4 sm:mt-6 pt-4 border-t" style={{ borderColor: 'var(--border-secondary)' }}>
+                <p className="text-xs text-center" style={{ color: 'var(--text-muted)' }}>
                   Theme preference will be saved locally
                 </p>
               </div>
