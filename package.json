@@ -27,7 +27,7 @@
     "react-scripts": "5.0.1",
     "react-syntax-highlighter": "^15.6.1",
     "react-tilt": "^1.0.2",
-    "react-typed": "^1.2.0",
+    "react-typed": "^2.0.12",
     "three": "^0.160.0",
     "tsparticles": "^3.8.1",
     "tsparticles-engine": "^2.12.0",
