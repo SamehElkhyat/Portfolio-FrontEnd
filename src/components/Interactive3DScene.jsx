@@ -131,7 +131,6 @@ function Scene({ isPaused, autoRotate }) {
     { position: [-2, -2, 2], color: "#10b981", type: "sphere" },
     { position: [2, -2, -2], color: "#f59e0b", type: "box" },
   ];
-
   const techIcons = [
     { position: [-4, 2, 1], text: "React", color: "#61dafb" },
     { position: [4, 2, -1], text: "JS", color: "#f7df1e" },
@@ -139,15 +138,11 @@ function Scene({ isPaused, autoRotate }) {
     { position: [-2, 1, -3], text: "Node", color: "#68a063" },
     { position: [3, -1, 3], text: "TS", color: "#3178c6" },
   ];
-
   return (
     <>
-      {/* Lighting */}
       <ambientLight intensity={0.4} />
       <pointLight position={[10, 10, 10]} intensity={1} />
       <spotLight position={[-10, -10, -10]} angle={0.15} penumbra={1} />
-
-      {/* Animated Shapes */}
       {!isPaused &&
         shapes.map((shape, index) => (
           <AnimatedShape
@@ -159,7 +154,6 @@ function Scene({ isPaused, autoRotate }) {
           />
         ))}
 
-      {/* Floating Tech Icons */}
       {techIcons.map((icon, index) => (
         <FloatingTechIcon
           key={index}
@@ -169,10 +163,8 @@ function Scene({ isPaused, autoRotate }) {
         />
       ))}
 
-      {/* Particle Cloud */}
       <ParticleCloud />
 
-      {/* Controls */}
       <OrbitControls
         enableZoom={true}
         enablePan={true}
