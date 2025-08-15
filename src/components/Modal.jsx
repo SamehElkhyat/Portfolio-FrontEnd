@@ -155,14 +155,14 @@ const Modal = ({ isOpen, onClose, project }) => {
                   href="#"
                   className="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-accent-cyan text-primary-dark font-montserrat font-semibold hover:bg-accent-blue transition-all duration-300 transform hover:scale-105 text-sm sm:text-base rounded"
                 >
-                  <span className="mr-2">View Live Demo</span>
+                  <span className="mr-2" onClick={() => window.open(project.demo, '_blank')}>View Live Demo</span>
                   <span>↗</span>
                 </a>
                 <a
                   href="#"
                   className="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-accent-cyan text-accent-cyan font-montserrat font-semibold hover:bg-accent-cyan hover:text-primary-dark transition-all duration-300 transform hover:scale-105 text-sm sm:text-base rounded"
                 >
-                  <span className="mr-2">View Source Code</span>
+                  <span className="mr-2" onClick={() => window.open(project.github, '_blank')}>View Source Code</span>
                   <span>→</span>
                 </a>
               </motion.div>

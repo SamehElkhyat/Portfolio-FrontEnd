@@ -11,7 +11,7 @@ import {
   MapPin,
   Palette,
 } from "lucide-react";
-import QRCode from "react-qr-code"; 
+import QRCode from "react-qr-code";
 
 const QRContactCard = () => {
   const [activeTab, setActiveTab] = useState("contact");
@@ -22,8 +22,8 @@ const QRContactCard = () => {
   const contactInfo = {
     name: "Sameh Saleh El-khayat",
     title: "Frontend Developer",
-    email: "sameh@example.com",
-    phone: "+20 (10) 123-4567",
+    email: "ssalih292@gmail.com",
+    phone: "+201065369433",
     website: "https://sameh-portfolio.com",
     location: "Cairo, Egypt",
     linkedin: "https://linkedin.com/in/sameh",

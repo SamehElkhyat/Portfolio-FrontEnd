@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import { useInView } from "react-intersection-observer";
+import MessengerChat from "./MessengerChat";
 import {
   ChevronDown,
   Github,
@@ -89,19 +90,19 @@ const Hero = () => {
   const socialLinks = [
     {
       icon: Github,
-      href: "#",
+      href: "https://github.com/SamehElkhyat",
       label: "GitHub",
       ariaLabel: "Visit my GitHub profile",
     },
     {
       icon: Linkedin,
-      href: "#",
+      href: "https://www.linkedin.com/in/sameh-salih-02179b271/",
       label: "LinkedIn",
       ariaLabel: "Connect with me on LinkedIn",
     },
     {
       icon: Mail,
-      href: "mailto:sameh@example.com",
+      href: "mailto:ssalih292@gmail.com",
       label: "Email",
       ariaLabel: "Send me an email",
     },
@@ -124,6 +125,7 @@ const Hero = () => {
           }}
         ></div>
 
+        <MessengerChat />
         {/* Mouse Follower Gradient */}
         {isLoaded && (
           <motion.div
@@ -163,16 +165,10 @@ const Hero = () => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div variants={itemVariants} className="mb-8">
-            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 backdrop-blur-sm">
-              <span className="text-blue-400 font-medium">
-                🚀 Available for Senior Positions
-              </span>
-            </div>
-          </motion.div>
+          {/* availability badge removed */}
 
           {/* Name with Typewriter */}
-          <motion.div variants={itemVariants} className="">
+          <motion.div  variants={itemVariants} className=" flex flex-col items-center mt-[42px]">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-4 leading-tight">
               Sameh Saleh El-khayat
             </h1>
@@ -181,9 +177,7 @@ const Hero = () => {
                 options={{
                   strings: [
                     "Frontend Developer",
-                    "React.js Specialist",
-                    "UI/UX Enthusiast",
-                    "Problem Solver",
+                    "React.js / Next.js Developer",
                   ],
                   autoStart: true,
                   loop: true,

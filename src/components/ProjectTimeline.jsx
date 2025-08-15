@@ -14,84 +14,76 @@ const ProjectTimeline = () => {
   const timelineItems = [
     {
       id: 1,
-      type: 'project',
-      title: 'E-Commerce Platform Redesign',
-      company: 'TechCorp Solutions',
-      date: '2024',
-      duration: '6 months',
-      description: 'Led complete redesign of enterprise e-commerce platform serving 100K+ users',
-      technologies: ['React', 'Node.js', 'AWS', 'MongoDB'],
-      achievements: ['40% performance improvement', '25% conversion increase', '99.9% uptime'],
-      links: {
-        demo: 'https://demo.example.com',
-        github: 'https://github.com/example'
-      },
+      type: 'work',
+      title: 'Junior Front-End Software Engineer',
+      company: 'Ahmed Almosa, Inc',
+      date: 'Jan 2025 - Present',
+      duration: 'Full-time',
+      description: 'Participated in the design and development of Takhlees Tech, a web platform that streamlines customs clearance and import/export processes, using React.js and Tailwind CSS.',
+      technologies: ['React.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB'],
+      achievements: [
+        'Built core UI components',
+        'Improved data flow with React hooks',
+        'Implemented secure integration with customs APIs',
+        '50% faster processing workflow'
+      ],
       color: '#3b82f6',
-      icon: Code,
+      icon: Briefcase,
       featured: true
     },
     {
       id: 2,
       type: 'work',
-      title: 'Senior Frontend Developer',
-      company: 'Innovation Labs',
-      date: '2023 - Present',
-      duration: '1.5 years',
-      description: 'Building scalable React applications and leading a team of 5 developers',
-      technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind'],
-      achievements: ['Team leadership', 'Architecture design', 'Mentoring junior developers'],
+      title: 'Junior Front-End Software Engineer',
+      company: 'FiveFives',
+      date: 'Jul 2024 - Nov 2024',
+      duration: 'Full-time',
+      description: 'Maintained and improved the company\'s official website, enhancing performance and responsiveness using React.js and CSS modules.',
+      technologies: ['React.js', 'CSS Modules'],
+      achievements: [
+        'Collaborated with distributed team on social networking app',
+        'Implemented 10+ reusable UI components',
+        'Improved animation smoothness by 60% using Reanimated APIs',
+        'Reduced manual paperwork by 40%'
+      ],
       color: '#8b5cf6',
       icon: Briefcase,
-      featured: false
+      featured: true
     },
     {
       id: 3,
-      type: 'project',
-      title: 'AI-Powered Analytics Dashboard',
-      company: 'DataTech Inc',
-      date: '2023',
-      duration: '4 months',
-      description: 'Real-time analytics platform with machine learning insights',
-      technologies: ['Python', 'React', 'TensorFlow', 'D3.js'],
-      achievements: ['Real-time processing', 'ML integration', 'Custom visualizations'],
-      links: {
-        demo: 'https://demo.example.com',
-        github: 'https://github.com/example'
-      },
-      color: '#06b6d4',
-      icon: TrendingUp,
+      type: 'work',
+      title: 'Full-Stack Software Engineer Intern',
+      company: 'Crack Interview',
+      date: 'Apr 2024 - Jun 2024',
+      duration: 'Part-time',
+      description: 'Contributed to a social networking mobile app by implementing responsive UI components with React Native.',
+      technologies: ['React Native', 'React.js', 'Reanimated API'],
+      achievements: [
+        'Enhanced animation performance by 50%',
+        'Improved technical understanding of full-stack workflows',
+        'Completed tasks on time while learning advanced techniques'
+      ],
+      color: '#f59e0b',
+      icon: GraduationCap,
       featured: true
     },
     {
       id: 4,
-      type: 'education',
-      title: 'Full Stack Web Development',
-      company: 'Tech University',
-      date: '2022',
-      duration: '1 year',
-      description: 'Comprehensive program covering modern web development technologies',
-      technologies: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
-      achievements: ['Graduated with honors', 'Capstone project award', '95% grade average'],
-      color: '#f59e0b',
-      icon: GraduationCap,
-      featured: false
-    },
-    {
-      id: 5,
-      type: 'project',
-      title: 'Mobile Health Tracker',
-      company: 'HealthTech Solutions',
-      date: '2022',
-      duration: '3 months',
-      description: 'Cross-platform mobile app for health monitoring and fitness tracking',
-      technologies: ['React Native', 'Firebase', 'Redux', 'Charts.js'],
-      achievements: ['Cross-platform compatibility', '10K+ downloads', '4.8 app store rating'],
-      links: {
-        demo: 'https://demo.example.com',
-        github: 'https://github.com/example'
-      },
+      type: 'work',
+      title: 'Front-End Software Engineer Intern',
+      company: 'CodeAlpha',
+      date: 'Jan 2024 - Apr 2024',
+      duration: 'Part-time',
+      description: 'Gained practical experience in front-end development by building interactive UI components with React.js.',
+      technologies: ['React.js'],
+      achievements: [
+        'Improved layout rendering by 30%',
+        'Fixed UI bugs and enhanced component behavior',
+        'Worked collaboratively with mentors'
+      ],
       color: '#10b981',
-      icon: Users,
+      icon: GraduationCap,
       featured: true
     }
   ];
