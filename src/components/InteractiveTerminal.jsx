@@ -74,48 +74,51 @@ Type 'demo <project-name>' for more details!`
       description: 'Get contact information',
       execute: () => `📧 Contact Information
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Email: sameh@example.com
-Phone: +20 (10) 123-4567
+Email: samehsalehelkhayat@gmail.com
 LinkedIn: linkedin.com/in/sameh
-GitHub: github.com/sameh
-
-🌍 Available for remote work worldwide
-⏰ Timezone: EET (UTC+2)
-📅 Available: Sun-Thu 9AM-6PM
+GitHub: github.com/SamehElkhyat
 
 Ready to collaborate on your next project! 🚀`
     },
     resume: {
-      description: 'Download resume',
+      description: 'Open resume link',
       execute: () => {
-        // Simulate resume download
-        return `📄 Resume Download
+        const url = 'https://drive.google.com/file/d/1ANphUM023fVQKTlVEOGd83hrDqZQIiQo/view';
+        try {
+          window.open(url, '_blank');
+        } catch (e) {}
+        return `📄 Resume
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ Resume.pdf downloading...
-📊 File size: 2.3 MB
-🎯 Updated: December 2024
-
-Check your downloads folder! 📁`;
+Opening resume in a new tab...\n${url}`;
       }
     },
-    joke: {
-      description: 'Get a programming joke',
-      execute: () => {
-        const jokes = [
-          "Why do programmers prefer dark mode?\nBecause light attracts bugs! 🐛",
-          "How many programmers does it take to change a light bulb?\nNone. That's a hardware problem! 💡",
-          "Why did the programmer quit their job?\nThey didn't get arrays! 📊",
-          "What's a programmer's favorite hangout place?\nFoo Bar! 🍺",
-          "Why do Java developers wear glasses?\nBecause they can't C#! 👓"
-        ];
-        return jokes[Math.floor(Math.random() * jokes.length)];
+    theme: {
+      description: "Set theme: 'light', 'dark', or 'system' (usage: theme dark)",
+      execute: (arg) => {
+        const choice = (arg || '').trim();
+        const valid = ['light', 'dark', 'system'];
+        if (!valid.includes(choice)) {
+          return "Usage: theme <light|dark|system>";
+        }
+        // Persist selection and apply immediately
+        try {
+          localStorage.setItem('theme', choice);
+        } catch (e) {}
+        const root = document.documentElement;
+        if (choice === 'system') {
+          const mq = window.matchMedia('(prefers-color-scheme: dark)');
+          root.setAttribute('data-theme', mq.matches ? 'dark' : 'light');
+        } else {
+          root.setAttribute('data-theme', choice);
+        }
+        return `Theme set to: ${choice}`;
       }
     },
     clear: {
-      description: 'Clear terminal screen',
+      description: 'Clear terminal output',
       execute: () => {
-        setHistory([]);
-        return null;
+        // handled separately by clearTerminal
+        return '';
       }
     },
     date: {
@@ -137,6 +140,19 @@ drwxr-xr-x  timeline/       Career progression
 drwxr-xr-x  contact/        Get in touch
 
 Use navigation menu to explore! 🧭`
+    },
+    joke: {
+      description: 'Get a programming joke',
+      execute: () => {
+        const jokes = [
+          "Why do programmers prefer dark mode?\nBecause light attracts bugs! 🐛",
+          "How many programmers does it take to change a light bulb?\nNone. That's a hardware problem! 💡",
+          "Why did the programmer quit their job?\nThey didn't get arrays! 📊",
+          "What's a programmer's favorite hangout place?\nFoo Bar! 🍺",
+          "Why do Java developers wear glasses?\nBecause they can't C#! 👓"
+        ];
+        return jokes[Math.floor(Math.random() * jokes.length)];
+      }
     }
   };
 
@@ -204,8 +220,9 @@ Ready to explore? Let's get started! 🚀`, 'system');
   };
 
   const executeCommand = async (cmd) => {
-    const trimmedCmd = cmd.trim().toLowerCase();
-    
+    const trimmedCmd = cmd.trim();
+    const lower = trimmedCmd.toLowerCase();
+
     // Add command to history
     setHistory(prev => [...prev, {
       type: 'command',
@@ -217,15 +234,24 @@ Ready to explore? Let's get started! 🚀`, 'system');
     setCommandHistory(prev => [...prev, cmd]);
     setHistoryIndex(-1);
 
-    if (trimmedCmd === '') return;
+    if (lower === '') return;
 
-    if (commands[trimmedCmd]) {
-      const result = commands[trimmedCmd].execute();
+    // Parse command and optional arg
+    const [name, ...rest] = lower.split(/\s+/);
+    const arg = rest.join(' ');
+
+    if (name === 'clear') {
+      clearTerminal();
+      return;
+    }
+
+    if (commands[name]) {
+      const result = commands[name].execute(arg);
       if (result) {
         await typeMessage(result, 'output');
       }
     } else {
-      await typeMessage(`Command not found: ${trimmedCmd}
+      await typeMessage(`Command not found: ${name}
 Type 'help' to see available commands.`, 'error');
     }
   };
@@ -357,7 +383,7 @@ Type 'help' to see available commands.`, 'error');
       {/* Quick Commands */}
       <div className="bg-slate-800/30 px-4 py-3 border-t border-slate-700/50">
         <div className="flex flex-wrap gap-2">
-          {['help', 'about', 'skills', 'projects', 'contact'].map((cmd) => (
+          {['help', 'about', 'skills', 'projects', 'contact', 'resume', 'theme'].map((cmd) => (
             <motion.button
               key={cmd}
               onClick={() => {
@@ -377,4 +403,4 @@ Type 'help' to see available commands.`, 'error');
   );
 };
 
-export default InteractiveTerminal; 
+export default InteractiveTerminal;

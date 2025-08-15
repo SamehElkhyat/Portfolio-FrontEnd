@@ -13,11 +13,15 @@ import {
   Palette,
   Zap,
 } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 const Hero = () => {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
+  const { currentTheme, effectiveTheme, setTheme } = useTheme();
+
+let State = navigator.onLine
 
   const handleDownloadResume = () => {
     // Create download link for the CV
@@ -44,6 +48,10 @@ const Hero = () => {
       clearTimeout(timer);
     };
   }, []);
+  useEffect(() => {
+ console.log(State);
+ 
+  }, [State]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -168,7 +176,10 @@ const Hero = () => {
           {/* availability badge removed */}
 
           {/* Name with Typewriter */}
-          <motion.div  variants={itemVariants} className=" flex flex-col items-center mt-[42px]">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center mt-[42px]"
+          >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-4 leading-tight">
               Sameh Saleh El-khayat
             </h1>
@@ -277,6 +288,44 @@ const Hero = () => {
               </span>
             </motion.button>
           </motion.div>
+
+          {/* Theme Toggle */}
+          <div className="mt-4 flex items-center gap-2 text-sm text-gray-300">
+            <Palette className="w-4 h-4" />
+            <span className="mr-2">Theme:</span>
+            <div className="inline-flex rounded-full overflow-hidden border border-white/15">
+              <button
+                onClick={() => setTheme("light")}
+                className={`px-3 py-1.5 ${
+                  effectiveTheme === "light"
+                    ? "bg-white text-gray-900"
+                    : "bg-transparent text-gray-300"
+                }`}
+              >
+                Light
+              </button>
+              <button
+                onClick={() => setTheme("dark")}
+                className={`px-3 py-1.5 ${
+                  effectiveTheme === "dark"
+                    ? "bg-white text-gray-900"
+                    : "bg-transparent text-gray-300"
+                }`}
+              >
+                Dark
+              </button>
+              <button
+                onClick={() => setTheme("system")}
+                className={`px-3 py-1.5 ${
+                  currentTheme === "system"
+                    ? "bg-white text-gray-900"
+                    : "bg-transparent text-gray-300"
+                }`}
+              >
+                System
+              </button>
+            </div>
+          </div>
 
           {/* Social Links */}
           <motion.div
